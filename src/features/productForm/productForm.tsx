@@ -25,30 +25,34 @@ export const ProductForm: FC = () => {
     }
 
     const addnewProduct = async (newProduct: Product) => {
-        const { status } = await ProductService.createProduct(newProduct);
+        try {
+            const { status } = await ProductService.createProduct(newProduct);
 
-        if (status === 200) {
-            window.alert('El producto ha sido creado');
-            cleanForm();
-        }
+            if (status === 200) {
+                window.alert('El producto ha sido creado');
+                cleanForm();
+            }
 
-        if (status === 206) {
-            window.alert("Formulario incompleto");
+            if (status === 206) {
+                window.alert("Formulario incompleto");
+            }
+        } catch (error) {
+            window.alert(error)
         }
     }
 
     const updadateProduct = async (updatedProduct: Product) => {
-        const { status } = await ProductService.updateProduct(updatedProduct);
+        try {
+            const { status } = await ProductService.updateProduct(updatedProduct);
 
-        if (status === 200) {
-            window.alert('El producto ha sido actualizado');
-        }
-        if (status === 206) {
-          window.alert("Formulario incompleto");
-        }
-
-        if (status === 401) {
-          window.alert("Debe ser el author para realizar actualizacion del resgistro");
+            if (status === 200) {
+                window.alert('El producto ha sido actualizado');
+            }
+            if (status === 206) {
+            window.alert("Formulario incompleto");
+            }
+        } catch (error) {
+            window.alert(error)
         }
     }
 
@@ -81,6 +85,7 @@ export const ProductForm: FC = () => {
                     <InputFieldForm
                         label="ID"
                         type="text"
+                        readOnly={!!productInfo}
                         {...register("id", {
                             required: {
                                 value: true,
@@ -96,8 +101,10 @@ export const ProductForm: FC = () => {
                             },
                             validate: {
                                 idInvalid: async (fieldValue: string) => {
-                                    const { data } = await ProductService.validateProductId(fieldValue)
-                                    if (data) return "El id es invalido"
+                                    if (!productInfo) {
+                                        const { data } = await ProductService.validateProductId(fieldValue)
+                                        if (data) return "El id es invalido"
+                                    }
                                 }
                             }
                         })}

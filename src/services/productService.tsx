@@ -14,7 +14,7 @@ const updateProduct = (data: Product) => {
 }
 
 const deleteProduct = (id: string) => {
-    return httpRequest.delete<Product>(`/${id}`);
+    return httpRequest.delete<Product>(`?id=${id}`);
 }
 
 const validateProductId = (id: string) => {

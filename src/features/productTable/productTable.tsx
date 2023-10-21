@@ -32,6 +32,7 @@ const initialPagesState = {
 export const ProductTable: FC = () => {
     const optionsLines = [5, 10, 20]
     const [selectedId, setSelectedId] = useState<number | string>('')
+    const [prductInfo, setprductInfo] = useState<Product>({})
     const [pages, setPages] = useState<Pages>(initialPagesState)
     const [openModal, setOpenModal] = useState<boolean>(false);
     const navigate = useNavigate();
@@ -106,6 +107,10 @@ export const ProductTable: FC = () => {
     }
 
     const handleModal = (value: boolean) => {
+        const product = pages.filterRecords.find(({id}) => id === selectedId);
+        if (product && value) {
+            setprductInfo(product)
+        }
         setOpenModal(value)
     }
 
@@ -114,19 +119,26 @@ export const ProductTable: FC = () => {
         setPages({...pages, 'search': value.toLowerCase()})
     }
 
-    const onDeleteProduct = async() => {
-        const { status } = await ProductService.deleteProduct(String(selectedId))
-        if (status === 200) {
-            window.alert(`El producto ha sido eliminado exitosamente`);
-        } else if (status === 400) {
-          window.alert('Debe ser el autor para realizar actualizacion del resgistro');
-        } else if (status === 404) {
-          window.alert(`No existe un producto con id ${selectedId}`);
+    const onDeleteProduct = async () => {
+        try {
+            const { status } = await ProductService.deleteProduct(prductInfo.id)
+            if (status === 200) {
+                window.alert(`El producto ha sido eliminado exitosamente`);
+            }
+        } catch (error) {
+            window.alert(error)
         }
+        handleModal(false)
     }
 
     return (
         <>
+        <Modal
+            openModal={openModal}
+            handleModal={handleModal}
+            content={`¿Esta seguro de eliminar el producto ${prductInfo.name}?`}
+            onConfirm={onDeleteProduct} 
+        />
         <div className="row">
             <InputField
                 type='text' 
@@ -175,14 +187,6 @@ export const ProductTable: FC = () => {
                                         onEdit={handleEdit}
                                         onDelete={() => handleModal(true)}
                                     />
-                                    {selectedId === product.id && (
-                                        <Modal
-                                            openModal={openModal}
-                                            handleModal={handleModal}
-                                            content={`¿Esta seguro de eliminar el producto ${product.name}?`}
-                                            onConfirm={onDeleteProduct} 
-                                        />
-                                    )}
                                 </td>
                             </tr>
                         )))}
@@ -190,7 +194,7 @@ export const ProductTable: FC = () => {
                 </table>
                 </div>
                 <Pagination
-                    total={pages.allRecords.length}
+                    total={pages.filterRecords.length}
                     optionsLines={optionsLines}
                     selectedLines={pages.lines}
                     handleChangeLines={handleChangeLines}

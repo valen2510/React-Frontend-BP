@@ -1,4 +1,7 @@
-:host {
+.overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: fixed;
     top: 0px;
     right: 0px;
@@ -7,16 +10,20 @@
     background-color: rgba(0, 0, 0, 0.5);
 }
 
+
 .modal {
     width: 30%;
-    height: 15rem;
-    box-shadow: 5px 5px 6px #b0b0b1;
     border-radius: 5px;
     background-color: #ffffff;
-    padding: 3rem;
+    font-size: 1.2em;
+    padding: 1rem;
 }
 
 .modal-content {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
+}
+
+.modal-actions .row{
+    justify-content: space-around;
 }
