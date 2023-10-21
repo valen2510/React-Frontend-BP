@@ -1,0 +1,25 @@
+button {
+    border: none;
+    border-radius: 5px;
+    padding: 1em;
+    cursor: pointer;
+    font-weight: 700;
+    margin-bottom: 1em;
+    color: #1b2a57;
+
+    &:disabled {
+        background-color: #b0b0b1;
+        color: #f9fafc;
+    }
+}
+
+.btn-primary {
+    background-color: #F9de4b;
+}
+
+.btn-secondary {
+    background-color: #f4f6f9;
+}
+
+
+

@@ -1,0 +1,17 @@
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+}
+
+img {
+    width: 80%;
+    height: auto;
+}
+
+.logo {
+    max-width: 20em;
+    margin: 2em auto 1em auto;
+}

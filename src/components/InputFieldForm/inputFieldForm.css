@@ -1,0 +1,25 @@
+.field-form {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0.5em 0.5em 0.5em;
+    padding: 0.5em;
+    width: 100%;
+}
+
+.field-form label {
+    font-size: 0.7em;
+    font-weight: 700;
+}
+
+.field-form input {
+    width: 100%;
+}
+
+.text-error {
+    color: #e46161;
+    font-size: 0.8rem;
+}
+
+form input.error {
+    border: 2px solid #ef9d9d;
+}
