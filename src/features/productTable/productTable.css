@@ -1,0 +1,43 @@
+.table-container {
+    overflow: auto;
+    font-size: 0.8em;
+}
+    
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+thead {
+    background-color: #f9fafc;
+}
+
+tbody tr {
+    border-top: 2px solid #f9fafc;
+    border-bottom: 2px solid #f9fafc;
+}
+
+th,
+td {
+    text-align: center;
+    padding: 1em 2em;
+}
+
+thead i {
+    margin-left: 0.5em;
+}
+
+tbody tr td .center {
+    justify-content: center;
+}
+
+table tbody .logo {
+    width: 3em;
+    height: 3em;
+    border-radius: 50%;
+    color: #ffffff;
+    background-color: #c0c7d990;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

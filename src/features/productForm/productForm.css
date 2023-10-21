@@ -1,0 +1,36 @@
+.title {
+    padding: 0.5em 0;
+    text-align: center; 
+    border-bottom: 1px solid #1a1a1a;;
+    color: #1a1a1a;
+}
+
+form {
+    margin: 1em;
+}
+
+.card.form-container form .row {
+    align-items: flex-start;
+}
+
+.card.form-container {
+    width: 60%;
+    margin: auto;
+}
+
+.actions {
+    margin: auto;
+    margin-top: 1rem;
+    width: 60%;
+}
+
+@media screen and (max-width: 750px) {
+
+    form .row {
+        flex-wrap: wrap;
+    }
+
+    .actions {
+        width: 100%;
+    }
+}
