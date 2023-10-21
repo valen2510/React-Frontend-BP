@@ -20,7 +20,8 @@ tbody tr {
 th,
 td {
     text-align: center;
-    padding: 1em 2em;
+    vertical-align: baseline;
+    padding: 0.5em;
 }
 
 thead i {

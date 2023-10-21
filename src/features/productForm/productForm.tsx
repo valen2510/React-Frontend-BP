@@ -1,12 +1,12 @@
 import { FC, useEffect} from "react"
-import { useLoaderData } from "react-router-dom"
+import { redirect, useLoaderData } from "react-router-dom"
 import { useForm } from "react-hook-form"
+import { formattedDate } from "utils/parseDate"
 import { ProductService } from "services/productService"
 import { InputFieldForm } from "components/InputFieldForm/inputFieldForm"
 import { Button } from "components/Button/button"
 import Product from "types/Product"
 import './productForm.css'
-import { formattedDate } from "utils/parseDate"
  
 export const ProductForm: FC = () => {
     const productForm = useForm<Product>({ mode: "onBlur" })
@@ -16,7 +16,6 @@ export const ProductForm: FC = () => {
 
     useEffect(() => {
         if (productInfo) {
-            console.log(productInfo)
             reset(productInfo)
         }
     }, [])
@@ -193,8 +192,17 @@ export const ProductForm: FC = () => {
 }
 
 export const productInfoLoader = async ({params}: any) => {
-    const response = await ProductService.getAllProducts();
-    console.log('this a response', response);
-    console.log('this are paramas', params)
-    return response.data;
+    const {data, status} = await ProductService.getAllProducts();
+    if (status === 200 && params?.id) {
+        const productInfo = data.find((product) => product.id === params?.id)
+        if (!productInfo) {
+            redirect('/producto/nuevo')
+        }
+
+        return {
+            ...productInfo,
+            'date_release': formattedDate(productInfo?.date_release || ""),
+            'date_revision': formattedDate(productInfo?.date_revision || ""),
+        }
+    }
 }

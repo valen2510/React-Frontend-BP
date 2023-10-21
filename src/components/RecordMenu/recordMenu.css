@@ -31,3 +31,7 @@
     background-color: #b0b0b1;
     color: #ffffff;
 }
+
+.menu button:hover i {
+    color: #ffffff;
+}
